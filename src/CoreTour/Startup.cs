@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging;
 using CoreTour.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using AutoMapper;
+using CoreTour.ViewModels;
 
 namespace CoreTour
 {
@@ -87,6 +89,12 @@ namespace CoreTour
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            Mapper.Initialize(config =>
+            {
+                config.CreateMap<TripViewModel, Trip>().ReverseMap();
+                config.CreateMap<StopViewModel, Stop>().ReverseMap();
+            });
 
             app.UseApplicationInsightsExceptionTelemetry();
 
