@@ -32,6 +32,11 @@ namespace CoreTour.Controllers.Api
                 var results = _repository.GetTripsByUserName(User.Identity.Name);
                 return Ok(Mapper.Map<IEnumerable<TripViewModel>>(results));
             }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to get all trips: {ex}");
+                return BadRequest("Error occured");
+            }
         }
     }
 }

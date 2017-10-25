@@ -45,9 +45,9 @@ namespace CoreTour.Models
                 .Include(t => t.Stops)
                 .Where(t => t.Name == tripName && t.UserName == userName)
                 .FirstOrDefault();
-        }
+        }        
 
-        public object GetTripsByUsername(string name)
+        public object GetTripsByUserName(string name)
         {
             return _context.Trips
                 .Where(t => t.UserName == name)
