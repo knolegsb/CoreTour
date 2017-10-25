@@ -8,6 +8,7 @@ using CoreTour.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
 using CoreTour.ViewModels;
+using CoreTour.Services;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,12 +16,14 @@ namespace CoreTour.Controllers.Web
 {
     public class AppController : Controller
     {
+        private IMailService _mailService;
         private IConfigurationRoot _config;
         private ICoreTourRepository _repository;
         private ILogger<AppController> _logger;
 
-        public AppController(IConfigurationRoot config, ICoreTourRepository repository, ILogger<AppController> logger)
+        public AppController(IMailService mailService, IConfigurationRoot config, ICoreTourRepository repository, ILogger<AppController> logger)
         {
+            _mailService = mailService;
             _config = config;
             _repository = repository;
             _logger = logger;
@@ -59,14 +62,14 @@ namespace CoreTour.Controllers.Web
                 ModelState.AddModelError("", "We don't support AOL addresses");
             }
 
-            //if (ModelState.IsValid)
-            //{
-            //    _mailService.SendMail(_config["MailSettings:ToAddress"], model.Email, "From Core Tour", model.Message);
+            if (ModelState.IsValid)
+            {
+                _mailService.SendMail(_config["MailSettings:ToAddress"], model.Email, "From Core Tour", model.Message);
 
-            //    ModelState.Clear();
+                ModelState.Clear();
 
-            //    ViewBag.UserMessage = "Message Sent";
-            //}
+                ViewBag.UserMessage = "Message Sent";
+            }
 
             return View();
         }

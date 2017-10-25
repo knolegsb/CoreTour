@@ -38,5 +38,24 @@ namespace CoreTour.Controllers.Api
                 return BadRequest("Error occured");
             }
         }
+
+        [HttpPost("")]
+        public async Task<IActionResult> Post([FromBody]TripViewModel tripModel)
+        {
+            if (ModelState.IsValid)
+            {
+                // save to the database
+                var newTrip = Mapper.Map<Trip>(tripModel);
+                newTrip.UserName = User.Identity.Name;
+                _repository.AddTrip(newTrip);
+
+                if (await _repository.SaveChangesAsync())
+                {
+                    return Created($"api/trips/{tripModel.Name}", Mapper.Map<TripViewModel>(newTrip));
+                }
+            }
+
+            return BadRequest("Failed to save the trip");
+        }
     }
 }

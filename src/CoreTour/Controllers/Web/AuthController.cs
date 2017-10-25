@@ -52,7 +52,7 @@ namespace CoreTour.Controllers.Web
             {
                 await _signInManager.SignOutAsync();
             }
-            return RedirectToAction("Idnex", "App");
+            return RedirectToAction("Index", "App");
         }
     }
 }

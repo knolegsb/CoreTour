@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using AutoMapper;
 using CoreTour.ViewModels;
+using CoreTour.Services;
 
 namespace CoreTour
 {
@@ -41,7 +42,7 @@ namespace CoreTour
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
 
-            services.AddSingleton(Configuration);
+            services.AddSingleton(Configuration);            
 
             services.AddDbContext<CoreTourDbContext>();
             services.AddIdentity<CoreTourUser, IdentityRole>(config =>
@@ -67,6 +68,8 @@ namespace CoreTour
             .AddEntityFrameworkStores<CoreTourDbContext>();
 
             services.AddScoped<ICoreTourRepository, CoreTourRepository>();
+            services.AddScoped<IMailService, DebugMailService>();
+            services.AddTransient<GeoCoordsService>();
 
             services.AddTransient<CoreTourDbSeedData>();
             services.AddLogging();
