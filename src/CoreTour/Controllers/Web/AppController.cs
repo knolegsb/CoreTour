@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using CoreTour.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
+using CoreTour.ViewModels;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -45,6 +46,34 @@ namespace CoreTour.Controllers.Web
             }
         }
 
+        public IActionResult Contact()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public IActionResult Contact(ContactViewModel model)
+        {
+            if (model.Email.Contains("aol.com"))
+            {
+                ModelState.AddModelError("", "We don't support AOL addresses");
+            }
+
+            //if (ModelState.IsValid)
+            //{
+            //    _mailService.SendMail(_config["MailSettings:ToAddress"], model.Email, "From Core Tour", model.Message);
+
+            //    ModelState.Clear();
+
+            //    ViewBag.UserMessage = "Message Sent";
+            //}
+
+            return View();
+        }
+
+        public IActionResult About()
+        {
+            return View();
+        }
     }
 }

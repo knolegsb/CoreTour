@@ -19,8 +19,9 @@
         }
         <ul class="nav">
             <li class="active"><a asp-controller="Home" asp-action="Index">Home</a></li>
-            <li><a asp-controller="Home" asp-action="About">About</a></li>
-            <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+            <li><a asp-controller="App" asp-action="Index">Trips</a></li>
+            <li><a asp-controller="App" asp-action="About">About</a></li>
+            <li><a asp-controller="App" asp-action="Contact">Contact</a></li>
             @if (User.Identity.IsAuthenticated)
             {
                 <li><a asp-action="Trips" asp-controller="App">Your Trips</a></li>

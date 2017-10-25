@@ -45,5 +45,14 @@ namespace CoreTour.Controllers.Web
             ModelState.AddModelError("", "Login Failed");
             return View();
         }
+
+        public async Task<ActionResult> Logout()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                await _signInManager.SignOutAsync();
+            }
+            return RedirectToAction("Idnex", "App");
+        }
     }
 }
