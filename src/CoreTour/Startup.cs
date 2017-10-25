@@ -66,6 +66,8 @@ namespace CoreTour
             })
             .AddEntityFrameworkStores<CoreTourDbContext>();
 
+            services.AddScoped<ICoreTourRepository, CoreTourRepository>();
+
             services.AddTransient<CoreTourDbSeedData>();
             services.AddLogging();
 
